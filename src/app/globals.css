@@ -19,6 +19,24 @@
   }
 }
 
-body {
+/* ----- PRINT: A4 เป๊ะ + แสดงเฉพาะโซนพิมพ์ ----- */
+@media print {
+  @page { size: A4 portrait; margin: 0; }  /* ขอบกระดาษ */
 
+  /* ซ่อนทุกอย่าง ยกเว้น #print-area */
+  body * { visibility: hidden; }
+  #print-area, #print-area * { visibility: visible; }
+
+  /* ตรึงเอกสารไว้บนซ้ายกระดาษ, ห้ามมีเงา/กรอบพิเศษ */
+  #print-area {
+    position: fixed; inset: 0 auto auto 0;
+    width: 210mm; min-height: 297mm;
+    margin: 0; padding: 0;
+    box-shadow: none !important;
+    border: 0 !important;
+    background: white;
+  }
+
+  /* utility บ่อย ๆ */
+  .print-unbox { padding: 0 !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; }
 }
