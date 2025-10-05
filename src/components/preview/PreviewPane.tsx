@@ -20,7 +20,7 @@ export default function PreviewPane({ data }: { data: NormalizedInvoice[] | null
     <div>
       {/* ปุ่มอยู่นอก #print-area และซ่อนตอนพิมพ์ */}
       <div className="mb-2 flex justify-end print:hidden">
-        <PrintPDFButton />
+        <PrintPDFButton inv={data[0]} />
       </div>
 
       {/* กล่องพรีวิว: จะถูก “unbox” ตอนพิมพ์ด้วย .print-unbox ตามที่ตั้งใน globals.css */}

@@ -1,34 +1,27 @@
+// app/api/template/route.ts
 import * as XLSX from "xlsx";
-
 export const runtime = "nodejs";
 
 export async function GET() {
-  // === ชีต invoices (หัวเอกสาร) ===
+  // ชีต invoices (หัวเอกสาร) — ใช้หัวคอลัมน์ภาษาไทย
   const invoices = [
     {
-      invoice_no: "QT25010005",
-      date: "2025-01-09",
-      client_name: "บริษัท เวล ออแกน จำกัด",
-      tax_id: "0105557007155",
-      address:
-        "15/3 ซอยเฉลิมพระเกียรติ 118 แยก 42-2 แขวงสะพานสูง เขตสะพานสูง กรุงเทพมหานคร 10240",
+      "No.": "QT25010005",
+      "Date": "2025-01-09",
+      "Client": "บริษัท เวล ออแกน จำกัด",
+      "Address": "15/3 ซอยเฉลิมพระเกียรติ 118 แยก 42-2 แขวงสะพานสูง เขตสะพานสูง กรุงเทพมหานคร 10240",
+      "เลขประจำตัวผู้เสียภาษี": "0105557007155",
+      "ผู้ติดต่อ": "คุณลักขณา พันธรักษ์ (แพร)",
+      "email": "pair@example.com",
+      "โทร": "089-xxx-xxxx",
+      "Job": "ค่าดูแล และอัพเดทข้อมูลเว็บไซต์ Whale",
     },
   ];
 
-  // === ชีต items (รายการในตาราง) ===
+  // ชีต items — หัวคอลัมน์ภาษาไทย
   const items = [
-    {
-      invoice_no: "QT25010005",
-      description:
-        "ค่าดูแล และอัพเดทข้อมูลเว็บไซต์ Whale ทุก 3 เดือน จำนวน 4 ครั้ง\n" +
-        "   -  ครั้งที่ 1 วันที่ 29 มีนาคม 2568, ครั้งที่ 2 วันที่ 28 มิถุนายน 2568, ครั้งที่ 3 วันที่ 30 กันยายน 2568, ครั้งที่ 4 วันที่ 27 ธันวาคม 2568\n" +
-        "   -  อัพเดทข้อมูลทุกเดือน ไม่เกิน 25 คอนเทนต์\n" +
-        "   -  ปรับโทนภาพให้เหมาะสม ไม่เกิน 20 รูป/1 ผลงาน\n" +
-        "   -  ชำระค่าบริการครั้งละ 1 ครั้ง\n" +
-        "   -  ข้อมูลและรูปภาพสำหรับใช้งานต้องมาจากทางลูกค้า",
-      qty: 1,
-      unit_price: 10000,
-    },
+    { "No.": "QT25010005", "ลำดับ": 1, "รายการ": "ค่าบริการรายเดือน", "จำนวน": 1, "ราคา / หน่วย": 10000, "จำนวนเงิน": 10000 },
+    { "No.": "QT25010005", "ลำดับ": 2, "รายการ": "ค่าแรงอัปเดตคอนเทนต์", "จำนวน": 1, "ราคา / หน่วย": 3500,  "จำนวนเงิน": 3500  },
   ];
 
   const wb = XLSX.utils.book_new();
@@ -38,8 +31,7 @@ export async function GET() {
   const buf = XLSX.write(wb, { type: "buffer", bookType: "xlsx" });
   return new Response(buf, {
     headers: {
-      "Content-Type":
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "Content-Disposition": 'attachment; filename="excel-template.xlsx"',
       "Cache-Control": "no-store",
     },

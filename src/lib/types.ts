@@ -4,6 +4,10 @@ export type InvoiceSheetRow = {
   client_name: string;
   tax_id?: string;
   address?: string;
+  contact_name?: string;  // ผู้ติดต่อ
+  contact_email?: string; // email
+  contact_phone?: string; // โทร
+  job?: string;           // Job
 };
 
 export type ItemSheetRow = {

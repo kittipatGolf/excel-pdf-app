@@ -19,24 +19,46 @@
   }
 }
 
-/* ----- PRINT: A4 เป๊ะ + แสดงเฉพาะโซนพิมพ์ ----- */
+@page {
+  size: A4;
+  margin: 12mm;
+}
+
+/* พรีวิว A4 บนจอ (ความกว้าง 210mm) */
+.a4-preview {
+  width: 210mm;
+  margin: 0 auto;
+  background: white;
+}
+
+/* ช่วยให้หัวตารางซ้ำทุกหน้าเวลา print */
 @media print {
-  @page { size: A4 portrait; margin: 0; }  /* ขอบกระดาษ */
-
-  /* ซ่อนทุกอย่าง ยกเว้น #print-area */
-  body * { visibility: hidden; }
-  #print-area, #print-area * { visibility: visible; }
-
-  /* ตรึงเอกสารไว้บนซ้ายกระดาษ, ห้ามมีเงา/กรอบพิเศษ */
-  #print-area {
-    position: fixed; inset: 0 auto auto 0;
-    width: 210mm; min-height: 297mm;
-    margin: 0; padding: 0;
-    box-shadow: none !important;
-    border: 0 !important;
-    background: white;
+  thead {
+    display: table-header-group;
   }
 
-  /* utility บ่อย ๆ */
-  .print-unbox { padding: 0 !important; margin: 0 !important; border: 0 !important; box-shadow: none !important; }
+  tfoot {
+    display: table-footer-group;
+  }
+
+  .print-unbox {
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+  }
+}
+
+/* ป้องกันการแตกกลางแถว แต่อนุญาตให้แตก “ระหว่างแถว” */
+table {
+  page-break-inside: auto;
+}
+
+tr {
+  page-break-inside: avoid;
+  break-inside: avoid;
+}
+
+td,
+th {
+  break-inside: avoid;
 }
